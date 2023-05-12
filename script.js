@@ -23,3 +23,24 @@ const player = (marker) => {
 
 // const player1 = player("X");
 // const player2 = player("O");
+
+const gameLogic = (() => {
+  const player1 = player("X");
+  const player2 = player("O");
+  let currentPlayer = player1;
+  const placeMarker = (position) => {
+    gameboard.add(currentPlayer.marker, position);
+    switchPlayer();
+  };
+  const switchPlayer = () => {
+    if (currentPlayer === player1) {
+      currentPlayer = player2;
+    } else {
+      currentPlayer = player1;
+    }
+  };
+  return { placeMarker, switchPlayer };
+})();
+
+gameLogic.placeMarker(0); // 'X'
+gameLogic.placeMarker(8); // 'O'
