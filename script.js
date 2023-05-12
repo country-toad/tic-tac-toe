@@ -14,8 +14,12 @@ const gameboard = (() => {
   return { getArr, add };
 })();
 
-gameboard.add("o", 0);
-gameboard.add("x", 1);
-gameboard.add("z", 2);
-gameboard.add("X", 2);
-console.log(gameboard.getArr());
+// gameboard.add("X", 2);
+// console.log(gameboard.getArr());
+
+const player = (marker) => {
+  return { marker };
+};
+
+// const player1 = player("X");
+// const player2 = player("O");
