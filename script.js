@@ -1,15 +1,15 @@
-const Gameboard = (() => {
+const gameboard = (() => {
   // const arr = ["x", "o", "x", "o", "x", "o", "x", "o", "x"];
   const arr = Array(9).fill("");
   const addX = (position) => {
-    if (arr[(position = "")]) {
+    if (arr[position] == "") {
       arr[position] = "x";
     }
-    return this;
+    return arr;
   };
   const getArr = () => arr;
-  return { getArr };
+  return { getArr, addX };
 })();
 
-console.log(Gameboard.getArr());
-console.log();
+gameboard.addX(1);
+console.log(gameboard.getArr());
