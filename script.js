@@ -1,15 +1,20 @@
 const gameboard = (() => {
   // const arr = ["x", "o", "x", "o", "x", "o", "x", "o", "x"];
   const arr = Array(9).fill("");
-  const addX = (position) => {
-    if (arr[position] == "") {
-      arr[position] = "x";
+  const getArr = () => arr;
+  const add = (value, position) => {
+    if (arr[position] === "" && (value === "x" || value === "o")) {
+      arr[position] = value;
+    } else {
+      console.log(`${value} is invalid input.`);
     }
     return arr;
   };
-  const getArr = () => arr;
-  return { getArr, addX };
+
+  return { getArr, add };
 })();
 
-gameboard.addX(1);
+gameboard.add("o", 0);
+gameboard.add("x", 1);
+gameboard.add("z", 2);
 console.log(gameboard.getArr());
