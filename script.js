@@ -52,10 +52,10 @@ const displayController = (() => {
     const body = document.querySelector("body");
     body.appendChild(gameboardEle);
     for (i = 0; i < 9; i++) {
-      const markerbox = document.createElement("p");
-      markerbox.className = "marker-box";
-      markerbox.innerText = gameboard.getArr()[i];
-      gameboardEle.appendChild(markerbox);
+      const markerContainer = document.createElement("p");
+      markerContainer.className = "marker-container";
+      markerContainer.innerText = gameboard.getArr()[i];
+      gameboardEle.appendChild(markerContainer);
     }
   };
   return { initGameboard };
