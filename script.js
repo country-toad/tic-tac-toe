@@ -44,3 +44,21 @@ const gameLogic = (() => {
 
 gameLogic.placeMarker(0); // 'X'
 gameLogic.placeMarker(8); // 'O'
+
+const displayController = (() => {
+  const initGameboard = () => {
+    const gameboardEle = document.createElement("div");
+    gameboardEle.className = "gameboard";
+    const body = document.querySelector("body");
+    body.appendChild(gameboardEle);
+    for (i = 0; i < 9; i++) {
+      const markerbox = document.createElement("p");
+      markerbox.className = "marker-box";
+      markerbox.innerText = gameboard.getArr()[i];
+      gameboardEle.appendChild(markerbox);
+    }
+  };
+  return { initGameboard };
+})();
+
+displayController.initGameboard();
