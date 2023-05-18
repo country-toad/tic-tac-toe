@@ -47,21 +47,20 @@ gameLogic.placeMarker(0, 2); // 'O'
 gameLogic.placeMarker(2, 2);
 
 const displayController = (() => {
-  const initGameboard = () => {
-    const gameboardEle = document.createElement("div");
-    gameboardEle.className = "gameboard";
-    const body = document.querySelector("body");
-    body.appendChild(gameboardEle);
+  const body = document.querySelector("body");
+  const gameboardEle = document.querySelector(".gameboard");
+  const initialize = () => {
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
         const markerContainer = document.createElement("p");
         markerContainer.className = "marker-container";
+        markerContainer.dataset.row = row;
         markerContainer.innerText = gameboard.getArr()[row][col];
         gameboardEle.appendChild(markerContainer);
       }
     }
   };
-  return { initGameboard };
+  return { initialize };
 })();
 
-displayController.initGameboard();
+displayController.initialize();
