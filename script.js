@@ -44,6 +44,7 @@ const gameLogic = (() => {
 gameLogic.placeMarker(0, 0); // 'X'
 gameLogic.placeMarker(0, 1); // 'O'
 gameLogic.placeMarker(0, 2); // 'O'
+gameLogic.placeMarker(1, 1);
 gameLogic.placeMarker(2, 2);
 
 const displayController = (() => {
@@ -52,9 +53,9 @@ const displayController = (() => {
   const initialize = () => {
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
-        const markerContainer = document.createElement("p");
+        const markerContainer = document.createElement("div");
         markerContainer.className = "marker-container";
-        markerContainer.dataset.row = row;
+        markerContainer.dataset.row = row + 1;
         markerContainer.innerText = gameboard.getArr()[row][col];
         gameboardEle.appendChild(markerContainer);
       }
