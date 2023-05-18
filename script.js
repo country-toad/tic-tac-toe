@@ -1,10 +1,13 @@
 const gameboard = (() => {
-  // const arr = ["x", "o", "x", "o", "x", "o", "x", "o", "x"];
-  const arr = Array(9).fill("");
+  const arr = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ];
   const getArr = () => arr;
-  const add = (value, position) => {
-    if (arr[position] === "" && (value === "X" || value === "O")) {
-      arr[position] = value;
+  const add = (value, row, col) => {
+    if (arr[row][col] === "" && (value === "X" || value === "O")) {
+      arr[row][col] = value;
     } else {
       console.log(`${value} is invalid input.`);
     }
@@ -14,22 +17,18 @@ const gameboard = (() => {
   return { getArr, add };
 })();
 
-// gameboard.add("X", 2);
 // console.log(gameboard.getArr());
 
 const player = (marker) => {
   return { marker };
 };
 
-// const player1 = player("X");
-// const player2 = player("O");
-
 const gameLogic = (() => {
   const player1 = player("X");
   const player2 = player("O");
   let currentPlayer = player1;
-  const placeMarker = (position) => {
-    gameboard.add(currentPlayer.marker, position);
+  const placeMarker = (row, col) => {
+    gameboard.add(currentPlayer.marker, row, col);
     switchPlayer();
   };
   const switchPlayer = () => {
@@ -42,8 +41,10 @@ const gameLogic = (() => {
   return { placeMarker, switchPlayer };
 })();
 
-gameLogic.placeMarker(0); // 'X'
-gameLogic.placeMarker(8); // 'O'
+gameLogic.placeMarker(0, 0); // 'X'
+gameLogic.placeMarker(0, 1); // 'O'
+gameLogic.placeMarker(0, 2); // 'O'
+gameLogic.placeMarker(2, 2);
 
 const displayController = (() => {
   const initGameboard = () => {
@@ -51,7 +52,7 @@ const displayController = (() => {
     gameboardEle.className = "gameboard";
     const body = document.querySelector("body");
     body.appendChild(gameboardEle);
-    for (i = 0; i < 9; i++) {
+    for (i = 0; i < 3; i++) {
       const markerContainer = document.createElement("p");
       markerContainer.className = "marker-container";
       markerContainer.innerText = gameboard.getArr()[i];
