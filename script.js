@@ -52,11 +52,13 @@ const displayController = (() => {
     gameboardEle.className = "gameboard";
     const body = document.querySelector("body");
     body.appendChild(gameboardEle);
-    for (i = 0; i < 3; i++) {
-      const markerContainer = document.createElement("p");
-      markerContainer.className = "marker-container";
-      markerContainer.innerText = gameboard.getArr()[i];
-      gameboardEle.appendChild(markerContainer);
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        const markerContainer = document.createElement("p");
+        markerContainer.className = "marker-container";
+        markerContainer.innerText = gameboard.getArr()[row][col];
+        gameboardEle.appendChild(markerContainer);
+      }
     }
   };
   return { initGameboard };
