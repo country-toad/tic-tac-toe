@@ -88,19 +88,20 @@ const displayController = (() => {
         markerContainer.dataset.row = row;
         markerContainer.dataset.col = col;
         markerContainer.innerText = gameboard.getArr()[row][col];
+        markerContainer.addEventListener("click", (event) => {
+          gameLogic.placeMarker(row, col);
+          event.target.innerText = gameboard.getArr()[row][col];
+        });
         gameboardEle.appendChild(markerContainer);
       }
     }
   };
-  const update = () => {
-    for (let row = 0; row < 3; row++) {
-      for (let col = 0; col < 3; col++) {
-        marker.Containe;
-      }
-    }
-  };
+
   return { initialize };
 })();
 
 displayController.initialize();
 gameLogic.checkWinner(gameboard.getArr());
+
+// const l = document.querySelector(".marker-container");
+// console.log(l.dataset.row);
