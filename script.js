@@ -85,9 +85,17 @@ const displayController = (() => {
       for (let col = 0; col < 3; col++) {
         const markerContainer = document.createElement("div");
         markerContainer.className = "marker-container";
-        markerContainer.dataset.row = row + 1;
+        markerContainer.dataset.row = row;
+        markerContainer.dataset.col = col;
         markerContainer.innerText = gameboard.getArr()[row][col];
         gameboardEle.appendChild(markerContainer);
+      }
+    }
+  };
+  const update = () => {
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        marker.Containe;
       }
     }
   };

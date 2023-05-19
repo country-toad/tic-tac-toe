@@ -16,14 +16,14 @@
   background: lightblue;
 }
 
-.marker-container[data-row="1"] {
+.marker-container[data-row="0"] {
   grid-row: 1;
 }
 
-.marker-container[data-row="2"] {
+.marker-container[data-row="1"] {
   grid-row: 2;
 }
 
-.marker-container[data-row="3"] {
+.marker-container[data-row="2"] {
   grid-row: 3;
 }
