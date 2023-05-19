@@ -1,8 +1,8 @@
 const gameboard = (() => {
   const arr = [
-    ["O", "", "O"],
-    ["", "O", ""],
-    ["O", "", "O"],
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
   ];
   const getArr = () => arr;
   const add = (value, row, col) => {
