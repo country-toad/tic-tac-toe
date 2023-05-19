@@ -1,8 +1,8 @@
 const gameboard = (() => {
   const arr = [
-    ["O", "O", ""],
+    ["O", "", "O"],
     ["", "O", ""],
-    ["", "", "O"],
+    ["O", "", "O"],
   ];
   const getArr = () => arr;
   const add = (value, row, col) => {
@@ -67,11 +67,10 @@ const gameLogic = (() => {
     for (let row = 0; row < 3; row++) {
       diag1.push(arr[row][ascCol]);
       diag2.push(arr[row][descCol]);
-
       ascCol++;
       descCol--;
     }
-    if (compareThree(diag1)) {
+    if (compareThree(diag1) || compareThree(diag2)) {
       console.log("Winner");
     }
   };
@@ -97,8 +96,3 @@ const displayController = (() => {
 
 displayController.initialize();
 gameLogic.checkWinner(gameboard.getArr());
-// gameLogic.checkWinner([
-//   ["O", "", ""],
-//   ["", "O", ""],
-//   ["", "", "O"],
-// ]);
