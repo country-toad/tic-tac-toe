@@ -17,8 +17,6 @@ const gameboard = (() => {
   return { getArr, add };
 })();
 
-// console.log(gameboard.getArr());
-
 const player = (marker) => {
   return { marker };
 };
@@ -38,14 +36,28 @@ const gameLogic = (() => {
       currentPlayer = player1;
     }
   };
-  return { placeMarker, switchPlayer };
+  const checkWinner = () => {
+    const compareThree = (values) => {
+      if (values[0] === "") {
+        return false;
+      }
+      return values.every((value) => value === values[0]);
+    };
+    //Check all rows
+    for (i = 0; i < 3; i++) {
+      if (compareThree(gameboard.getArr()[i])) {
+        console.log("Winner");
+      }
+    }
+  };
+  return { placeMarker, checkWinner };
 })();
 
-gameLogic.placeMarker(0, 0); // 'X'
-gameLogic.placeMarker(0, 1); // 'O'
-gameLogic.placeMarker(0, 2); // 'O'
+gameLogic.placeMarker(0, 0);
+gameLogic.placeMarker(2, 0);
+gameLogic.placeMarker(0, 1);
 gameLogic.placeMarker(1, 1);
-gameLogic.placeMarker(2, 2);
+gameLogic.placeMarker(0, 2);
 
 const displayController = (() => {
   const body = document.querySelector("body");
@@ -65,3 +77,4 @@ const displayController = (() => {
 })();
 
 displayController.initialize();
+gameLogic.checkWinner();
