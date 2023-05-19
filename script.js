@@ -1,8 +1,8 @@
 const gameboard = (() => {
   const arr = [
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""],
+    ["O", "O", ""],
+    ["", "O", ""],
+    ["", "", "O"],
   ];
   const getArr = () => arr;
   const add = (value, row, col) => {
@@ -59,15 +59,24 @@ const gameLogic = (() => {
         console.log("Winner");
       }
     }
+    //Check diags
+    let diag1 = [];
+    let diag2 = [];
+    let ascCol = 0;
+    let descCol = 2;
+    for (let row = 0; row < 3; row++) {
+      diag1.push(arr[row][ascCol]);
+      diag2.push(arr[row][descCol]);
+
+      ascCol++;
+      descCol--;
+    }
+    if (compareThree(diag1)) {
+      console.log("Winner");
+    }
   };
   return { placeMarker, checkWinner };
 })();
-
-gameLogic.placeMarker(0, 0);
-gameLogic.placeMarker(2, 0);
-gameLogic.placeMarker(0, 1);
-gameLogic.placeMarker(1, 1);
-gameLogic.placeMarker(0, 2);
 
 const displayController = (() => {
   const body = document.querySelector("body");
@@ -88,8 +97,8 @@ const displayController = (() => {
 
 displayController.initialize();
 gameLogic.checkWinner(gameboard.getArr());
-gameLogic.checkWinner([
-  ["O", "", ""],
-  ["O", "", ""],
-  ["O", "", ""],
-]);
+// gameLogic.checkWinner([
+//   ["O", "", ""],
+//   ["", "O", ""],
+//   ["", "", "O"],
+// ]);
