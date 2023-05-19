@@ -86,8 +86,6 @@ const displayController = (() => {
         const markerContainer = document.createElement("div");
         markerContainer.className = "marker-container";
         markerContainer.dataset.row = row;
-        markerContainer.dataset.col = col;
-        markerContainer.innerText = gameboard.getArr()[row][col];
         markerContainer.addEventListener("click", (event) => {
           gameLogic.placeMarker(row, col);
           event.target.innerText = gameboard.getArr()[row][col];
