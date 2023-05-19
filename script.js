@@ -36,16 +36,26 @@ const gameLogic = (() => {
       currentPlayer = player1;
     }
   };
-  const checkWinner = () => {
+  const checkWinner = (arr) => {
     const compareThree = (values) => {
       if (values[0] === "") {
         return false;
       }
       return values.every((value) => value === values[0]);
     };
-    //Check all rows
-    for (i = 0; i < 3; i++) {
-      if (compareThree(gameboard.getArr()[i])) {
+    for (let row = 0; row < 3; row++) {
+      // Check all rows
+      if (compareThree(arr[row])) {
+        console.log("Winner");
+      }
+    }
+    // Check all columns
+    for (let col = 0; col < 3; col++) {
+      let currentCol = [];
+      for (let row = 0; row < 3; row++) {
+        currentCol.push(arr[row][col]);
+      }
+      if (compareThree(currentCol)) {
         console.log("Winner");
       }
     }
@@ -77,4 +87,9 @@ const displayController = (() => {
 })();
 
 displayController.initialize();
-gameLogic.checkWinner();
+gameLogic.checkWinner(gameboard.getArr());
+gameLogic.checkWinner([
+  ["O", "", ""],
+  ["O", "", ""],
+  ["O", "", ""],
+]);
