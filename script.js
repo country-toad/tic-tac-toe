@@ -28,6 +28,12 @@ const gameLogic = (() => {
   let currentPlayer = player1;
   const placeMarker = (row, col) => {
     if (gameboard.add(currentPlayer.marker, row, col)) {
+      if (checkWinner(gameboard.getArr())) {
+        console.log(`${currentPlayer} Wins`);
+      }
+      if (checkTie(gameboard.getArr())) {
+        console.log("Tie");
+      }
       switchPlayer();
     }
   };
@@ -77,6 +83,7 @@ const gameLogic = (() => {
     }
   };
   const checkTie = (arr) => {
+    // Checks all spots on grid to see if any are empty. If none are empty, it is a tie.
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
         if (arr[row][col] === "") {
@@ -86,7 +93,7 @@ const gameLogic = (() => {
     }
     return true;
   };
-  return { placeMarker, checkWinner };
+  return { placeMarker, checkWinner, checkTie };
 })();
 
 const displayController = (() => {
@@ -111,7 +118,6 @@ const displayController = (() => {
 })();
 
 displayController.initialize();
-gameLogic.checkWinner(gameboard.getArr());
 
 // const l = document.querySelector(".marker-container");
 // console.log(l.dataset.row);
