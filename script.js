@@ -18,21 +18,23 @@ const gameboard = (() => {
   return { getArr, add };
 })();
 
-const player = (marker) => {
-  return { marker };
+const player = (name, marker) => {
+  return { name, marker };
 };
 
 const gameLogic = (() => {
-  const player1 = player("X");
-  const player2 = player("O");
+  const player1 = player("P1", "X");
+  const player2 = player("P2", "O");
   let currentPlayer = player1;
   const placeMarker = (row, col) => {
     if (gameboard.add(currentPlayer.marker, row, col)) {
       if (checkWinner(gameboard.getArr())) {
-        console.log(`${currentPlayer} Wins`);
+        console.log(`${currentPlayer.name} Wins`);
+        return;
       }
       if (checkTie(gameboard.getArr())) {
         console.log("Tie");
+        return;
       }
       switchPlayer();
     }
