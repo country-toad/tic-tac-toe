@@ -8,10 +8,11 @@ const gameboard = (() => {
   const add = (value, row, col) => {
     if (arr[row][col] === "" && (value === "X" || value === "O")) {
       arr[row][col] = value;
+      return true;
     } else {
       console.log(`${value} is invalid input.`);
+      return false;
     }
-    return arr;
   };
 
   return { getArr, add };
@@ -26,8 +27,9 @@ const gameLogic = (() => {
   const player2 = player("O");
   let currentPlayer = player1;
   const placeMarker = (row, col) => {
-    gameboard.add(currentPlayer.marker, row, col);
-    switchPlayer();
+    if (gameboard.add(currentPlayer.marker, row, col)) {
+      switchPlayer();
+    }
   };
   const switchPlayer = () => {
     if (currentPlayer === player1) {
