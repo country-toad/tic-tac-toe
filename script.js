@@ -28,7 +28,7 @@ const gameLogic = (() => {
   let currentPlayer = player1;
   const placeMarker = (row, col) => {
     if (gameboard.add(currentPlayer.marker, row, col)) {
-      if (checkWinner(gameboard.getArr())) {
+      if (checkWin(gameboard.getArr())) {
         console.log(`${currentPlayer.name} Wins`);
         return;
       }
@@ -46,7 +46,7 @@ const gameLogic = (() => {
       currentPlayer = player1;
     }
   };
-  const checkWinner = (arr) => {
+  const checkWin = (arr) => {
     const compareThree = (values) => {
       if (values[0] === "") {
         return false;
@@ -95,7 +95,8 @@ const gameLogic = (() => {
     }
     return true;
   };
-  return { placeMarker, checkWinner, checkTie };
+  const endGame = () => {};
+  return { placeMarker };
 })();
 
 const displayController = (() => {
