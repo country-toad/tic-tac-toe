@@ -10,7 +10,7 @@ const gameboard = (() => {
       arr[row][col] = value;
       return true;
     } else {
-      console.log(`${value} is invalid input.`);
+      console.log(`${value} is invalid input or selected square is not empty.`);
       return false;
     }
   };
