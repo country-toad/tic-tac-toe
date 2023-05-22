@@ -45,23 +45,23 @@ const gameLogic = (() => {
       }
       return values.every((value) => value === values[0]);
     };
+    // Check all row win conditions
     for (let row = 0; row < 3; row++) {
-      // Check all rows
       if (compareThree(arr[row])) {
-        console.log("Winner");
+        return true;
       }
     }
-    // Check all columns
+    // Check all column win conditions
     for (let col = 0; col < 3; col++) {
       let currentCol = [];
       for (let row = 0; row < 3; row++) {
         currentCol.push(arr[row][col]);
       }
       if (compareThree(currentCol)) {
-        console.log("Winner");
+        return true;
       }
     }
-    //Check diags
+    //Check diagonal win conditions
     let diag1 = [];
     let diag2 = [];
     let ascCol = 0;
@@ -73,8 +73,18 @@ const gameLogic = (() => {
       descCol--;
     }
     if (compareThree(diag1) || compareThree(diag2)) {
-      console.log("Winner");
+      return true;
     }
+  };
+  const checkTie = (arr) => {
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        if (arr[row][col] === "") {
+          return false;
+        }
+      }
+    }
+    return true;
   };
   return { placeMarker, checkWinner };
 })();
@@ -85,14 +95,14 @@ const displayController = (() => {
   const initialize = () => {
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
-        const markerContainer = document.createElement("div");
-        markerContainer.className = "marker-container";
-        markerContainer.dataset.row = row;
-        markerContainer.addEventListener("click", (event) => {
+        const markerButton = document.createElement("button");
+        markerButton.className = "marker-container";
+        markerButton.dataset.row = row;
+        markerButton.addEventListener("click", (event) => {
           gameLogic.placeMarker(row, col);
           event.target.innerText = gameboard.getArr()[row][col];
         });
-        gameboardEle.appendChild(markerContainer);
+        gameboardEle.appendChild(markerButton);
       }
     }
   };
