@@ -10,7 +10,7 @@
   width: 800px;
 }
 
-.marker-container {
+.marker-btn {
   height: 250px;
   width: 250px;
   background: lightblue;
@@ -20,28 +20,28 @@
   color: black;
 }
 
-.marker-container[data-row="0"] {
+.marker-btn[data-row="0"] {
   grid-row: 1;
 }
 
-.marker-container[data-row="1"] {
+.marker-btn[data-row="1"] {
   grid-row: 2;
 }
 
-.marker-container[data-row="2"] {
+.marker-btn[data-row="2"] {
   grid-row: 3;
 }
 
-marker-container:hover:enabled,
-marker-container:focus:enabled {
+.marker-btn:hover:enabled,
+.marker-btn:focus:enabled {
   background-color: rgb(236, 158, 85);
 }
 
-marker-container:focus:enabled {
+.marker-btn:focus:enabled {
   outline: 1px solid #fff;
   outline-offset: -4px;
 }
 
-marker-container:active:enabled {
+.marker-btn:active:enabled {
   transform: scale(0.99);
 }
