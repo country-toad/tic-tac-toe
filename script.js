@@ -124,13 +124,14 @@ const displayController = (() => {
     }
   };
   const showGameResult = (result, name) => {
-    const resultText = document.createElement("p");
+    const resultText = document.querySelector(".result");
+    resultText.hidden = false;
     if (result === "win") {
-      resultText.innerText = `${name} wins!`;
+      resultText.innerText += ` ${name} wins!`;
     } else if (result === "tie") {
-      resultText.innerText = "Tie!";
+      resultText.innerText += " Tie!";
     } else {
-      resultText.innerText = "Error";
+      resultText.innerText += " Error";
     }
     body.appendChild(resultText);
   };
