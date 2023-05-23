@@ -118,7 +118,7 @@ const displayController = (() => {
   };
   const showResult = (result, name) => {
     // Disable gameboard buttons
-    const allButtons = document.querySelectorAll(".marker-button");
+    const allButtons = document.querySelectorAll(".marker-btn");
     allButtons.forEach((button) => (button.disabled = "true"));
     const resultText = document.querySelector(".result");
     // Display results of game in text
