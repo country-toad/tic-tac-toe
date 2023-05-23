@@ -26,17 +26,14 @@ const gameLogic = (() => {
   const player1 = player("P1", "X");
   const player2 = player("P2", "O");
   let currentPlayer = player1;
-  let gameResult = "active";
   const placeMarker = (row, col) => {
     if (gameboard.add(currentPlayer.marker, row, col)) {
       if (checkWin(gameboard.getArr())) {
-        gameResult = "win";
-        endGame();
+        displayController.showResult("win", currentPlayer.name);
         return;
       }
       if (checkTie(gameboard.getArr())) {
-        gameResult = "tie";
-        endGame();
+        displayController.showResult("tie", currentPlayer.name);
         return;
       }
       switchPlayer();
@@ -98,18 +95,13 @@ const gameLogic = (() => {
     }
     return true;
   };
-  const endGame = () => {
-    const allButtons = document.querySelectorAll("button");
-    allButtons.forEach((button) => (button.disabled = "true"));
-    displayController.showGameResult(gameResult, currentPlayer.name);
-  };
   return { placeMarker };
 })();
 
 const displayController = (() => {
   const body = document.querySelector("body");
   const gameboardEle = document.querySelector(".gameboard");
-  const initialize = () => {
+  const initDisplay = () => {
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
         const markerButton = document.createElement("button");
@@ -124,8 +116,12 @@ const displayController = (() => {
       }
     }
   };
-  const showGameResult = (result, name) => {
+  const showResult = (result, name) => {
+    // Disable gameboard buttons
+    const allButtons = document.querySelectorAll(".marker-button");
+    allButtons.forEach((button) => (button.disabled = "true"));
     const resultText = document.querySelector(".result");
+    // Display results of game in text
     resultText.hidden = false;
     if (result === "win") {
       resultText.innerText += ` ${name} wins!`;
@@ -136,7 +132,7 @@ const displayController = (() => {
     }
     body.appendChild(resultText);
   };
-  return { initialize, showGameResult };
+  return { initDisplay, showResult };
 })();
 
-displayController.initialize();
+displayController.initDisplay();

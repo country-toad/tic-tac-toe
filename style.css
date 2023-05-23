@@ -15,7 +15,7 @@
   background: lightblue;
   font-size: 200px;
   appearance: none;
-  border: 2px inset black;
+  border: 2px solid black;
   color: black;
 }
 
@@ -43,6 +43,5 @@
 }
 
 .marker-btn:active:enabled {
-  transform: scale(0.99);
   cursor: grab;
 }
