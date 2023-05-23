@@ -26,15 +26,16 @@ const gameLogic = (() => {
   const player1 = player("P1", "X");
   const player2 = player("P2", "O");
   let currentPlayer = player1;
+  let gameResult = "active";
   const placeMarker = (row, col) => {
     if (gameboard.add(currentPlayer.marker, row, col)) {
       if (checkWin(gameboard.getArr())) {
-        console.log(`${currentPlayer.name} Wins`);
+        gameResult = "win";
         endGame();
         return;
       }
       if (checkTie(gameboard.getArr())) {
-        console.log("Tie");
+        gameResult = "tie";
         endGame();
         return;
       }
@@ -100,7 +101,7 @@ const gameLogic = (() => {
   const endGame = () => {
     const allButtons = document.querySelectorAll("button");
     allButtons.forEach((button) => (button.disabled = "true"));
-    displayController.showWinner(currentPlayer.name);
+    displayController.showGameResult(gameResult, currentPlayer.name);
   };
   return { placeMarker };
 })();
@@ -122,12 +123,18 @@ const displayController = (() => {
       }
     }
   };
-  const showWinner = (name) => {
-    const winnerText = document.createElement("p");
-    winnerText.innerText = `${name} wins!`;
-    body.appendChild(winnerText);
+  const showGameResult = (result, name) => {
+    const resultText = document.createElement("p");
+    if (result === "win") {
+      resultText.innerText = `${name} wins!`;
+    } else if (result === "tie") {
+      resultText.innerText = "Tie!";
+    } else {
+      resultText.innerText = "Error";
+    }
+    body.appendChild(resultText);
   };
-  return { initialize, showWinner };
+  return { initialize, showGameResult };
 })();
 
 displayController.initialize();
