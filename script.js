@@ -102,17 +102,16 @@ const displayController = (() => {
   const body = document.querySelector("body");
   const gameboardEle = document.querySelector(".gameboard");
   const initDisplay = () => {
+    const markerButtons = document.querySelectorAll(".marker-btn");
+    let counter = 0;
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
-        const markerButton = document.createElement("button");
-        markerButton.className = "marker-btn";
-        markerButton.dataset.row = row;
-        markerButton.addEventListener("click", (event) => {
+        markerButtons[counter].addEventListener("click", (event) => {
           gameLogic.placeMarker(row, col);
           event.target.innerText = gameboard.getArr()[row][col];
           event.target.disabled = true;
         });
-        gameboardEle.appendChild(markerButton);
+        counter++;
       }
     }
   };
