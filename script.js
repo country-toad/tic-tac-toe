@@ -99,11 +99,9 @@ const gameLogic = (() => {
 })();
 
 const displayController = (() => {
-  const body = document.querySelector("body");
-  const gameboardEle = document.querySelector(".gameboard");
   const initDisplay = () => {
     const markerButtons = document.querySelectorAll(".marker-btn");
-    let counter = 0;
+    let counter = 0; // 0 -> 8
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
         markerButtons[counter].addEventListener("click", (event) => {
@@ -129,9 +127,6 @@ const displayController = (() => {
     } else {
       resultText.innerText += " Error";
     }
-    body.appendChild(resultText);
   };
   return { initDisplay, showResult };
 })();
-
-displayController.initDisplay();
