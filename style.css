@@ -6,8 +6,7 @@
   display: grid;
   grid-template-columns: repeat(50px, 3);
   grid-template-rows: repeat(50px, 3);
-  gap: 16px;
-  width: 800px;
+  width: min-content;
 }
 
 .marker-btn {
@@ -35,6 +34,7 @@
 .marker-btn:hover:enabled,
 .marker-btn:focus:enabled {
   background-color: rgb(236, 158, 85);
+  cursor: grab;
 }
 
 .marker-btn:focus:enabled {
@@ -44,4 +44,5 @@
 
 .marker-btn:active:enabled {
   transform: scale(0.99);
+  cursor: grab;
 }
