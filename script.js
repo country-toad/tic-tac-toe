@@ -30,10 +30,12 @@ const gameLogic = (() => {
     if (gameboard.add(currentPlayer.marker, row, col)) {
       if (checkWin(gameboard.getArr())) {
         console.log(`${currentPlayer.name} Wins`);
+        endGame();
         return;
       }
       if (checkTie(gameboard.getArr())) {
         console.log("Tie");
+        endGame();
         return;
       }
       switchPlayer();
@@ -95,7 +97,11 @@ const gameLogic = (() => {
     }
     return true;
   };
-  const endGame = () => {};
+  const endGame = () => {
+    const allButtons = document.querySelectorAll("button");
+    allButtons.forEach((button) => (button.disabled = "true"));
+    displayController.showWinner(currentPlayer.name);
+  };
   return { placeMarker };
 })();
 
@@ -116,8 +122,12 @@ const displayController = (() => {
       }
     }
   };
-
-  return { initialize };
+  const showWinner = (name) => {
+    const winnerText = document.createElement("p");
+    winnerText.innerText = `${name} wins!`;
+    body.appendChild(winnerText);
+  };
+  return { initialize, showWinner };
 })();
 
 displayController.initialize();
