@@ -14,6 +14,12 @@
   height: 250px;
   width: 250px;
   background: lightblue;
+  font-size: 200px;
+  appearance: none;
+}
+
+.marker-container:active {
+  appearance: none;
 }
 
 .marker-container[data-row="0"] {
@@ -26,4 +32,24 @@
 
 .marker-container[data-row="2"] {
   grid-row: 3;
+}
+
+button {
+  border: 2px inset black;
+  color: black;
+  background-color: lightblue;
+}
+
+button:hover:enabled,
+button:focus:enabled {
+  background-color: rgb(236, 158, 85);
+}
+
+button:focus:enabled {
+  outline: 1px solid #fff;
+  outline-offset: -4px;
+}
+
+button:active:enabled {
+  transform: scale(0.99);
 }

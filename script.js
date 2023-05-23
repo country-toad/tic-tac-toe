@@ -118,6 +118,7 @@ const displayController = (() => {
         markerButton.addEventListener("click", (event) => {
           gameLogic.placeMarker(row, col);
           event.target.innerText = gameboard.getArr()[row][col];
+          event.target.disabled = true;
         });
         gameboardEle.appendChild(markerButton);
       }
@@ -139,6 +140,3 @@ const displayController = (() => {
 })();
 
 displayController.initialize();
-
-// const l = document.querySelector(".marker-container");
-// console.log(l.dataset.row);
