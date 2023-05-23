@@ -19,16 +19,7 @@ body {
   width: min-content;
 }
 
-.marker-btn {
-  height: 250px;
-  width: 250px;
-  background: rgb(14, 63, 83);
-  font-size: 200px;
-  appearance: none;
-  border: 5px solid rgb(31, 29, 29);
-  color: var(--egg);
-}
-
+/* Organize marker buttons into grid */
 .marker-btn[data-row="0"] {
   grid-row: 1;
 }
@@ -39,6 +30,16 @@ body {
 
 .marker-btn[data-row="2"] {
   grid-row: 3;
+}
+
+.marker-btn {
+  height: 250px;
+  width: 250px;
+  background: rgb(14, 63, 83);
+  font-size: 200px;
+  appearance: none;
+  border: 5px solid rgb(31, 29, 29);
+  color: var(--egg);
 }
 
 .marker-btn:hover:enabled,
