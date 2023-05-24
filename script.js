@@ -112,7 +112,21 @@ const displayController = (() => {
         counter++;
       }
     }
+    const newGame = document.querySelector(".new-game-btn");
+    newGame.addEventListener("click", () => toggleGameModal());
+    const cancelGame = document.querySelector(".cancel-form-btn");
+    cancelGame.addEventListener("click", () => toggleGameModal());
   };
+
+  const toggleGameModal = () => {
+    const overlay = document.querySelector(".overlay");
+    if (overlay.style.display === "none") {
+      overlay.style.display = "flex";
+    } else {
+      overlay.style.display = "none";
+    }
+  };
+
   const showResult = (result, name) => {
     // Disable gameboard buttons
     const allButtons = document.querySelectorAll(".marker-btn");
@@ -130,3 +144,5 @@ const displayController = (() => {
   };
   return { initDisplay, showResult };
 })();
+
+displayController.initDisplay();

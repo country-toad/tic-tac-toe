@@ -8,6 +8,25 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="overlay">
+      <form>
+        <fieldset class="new-game-form">
+          <label for="title">Player X</label>
+          <input type="text" id="player-x-name" placeholder="Name" required />
+          <span class="error" aria-live="polite"></span>
+          <label for="title">Player O</label>
+          <input type="text" id="player-o-name" placeholder="Name" required />
+          <span class="error" aria-live="polite"></span>
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="isread" />
+            AI?
+            <label for="isread"></label>
+          </div>
+          <button type="submit" class="start-btn">Start Game</button>
+          <button type="button" class="cancel-form-btn">Cancel</button>
+        </fieldset>
+      </form>
+    </div>
     <header><h1>Tic Tac Toe</h1></header>
     <button type="button" class="new-game-btn">New Game</button>
     <div class="gameboard">
