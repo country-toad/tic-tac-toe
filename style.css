@@ -43,7 +43,7 @@ body {
 }
 
 .marker-btn:disabled {
-  background: rgb(78, 78, 78);
+  background: rgba(14, 63, 83, 0.5);
 }
 
 .marker-btn:hover:enabled,

@@ -14,8 +14,15 @@ const gameboard = (() => {
       return false;
     }
   };
+  const reset = () => {
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        arr[row][col] = "";
+      }
+    }
+  };
 
-  return { getArr, add };
+  return { getArr, add, reset };
 })();
 
 const player = (name, marker) => {
@@ -105,6 +112,7 @@ const displayController = (() => {
   cancelGame.addEventListener("click", () => toggleGameModal());
   const startGame = document.querySelector(".start-btn");
   startGame.addEventListener("click", (event) => {
+    gameboard.reset();
     initGame();
     toggleGameModal();
     event.preventDefault();
@@ -115,6 +123,7 @@ const displayController = (() => {
     let counter = 0; // 0 -> 8
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
+        markerButtons[counter].innerText = gameboard.getArr()[row][col];
         markerButtons[counter].disabled = false;
         markerButtons[counter].addEventListener("click", (event) => {
           gameLogic.placeMarker(row, col);
