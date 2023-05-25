@@ -102,7 +102,15 @@ const gameLogic = (() => {
     }
     return true;
   };
-  return { placeMarker };
+  const setPlayer = (name, marker) => {
+    if (marker === "X") {
+      player1.name = name;
+    } else if (marker === "O") {
+      player2.name = name;
+    }
+  };
+
+  return { placeMarker, setPlayer };
 })();
 
 const displayController = (() => {
@@ -113,6 +121,8 @@ const displayController = (() => {
   const startGame = document.querySelector(".start-btn");
   startGame.addEventListener("click", (event) => {
     gameboard.reset();
+    gameLogic.setPlayer(document.querySelector("#player-x-name").value, "X");
+    gameLogic.setPlayer(document.querySelector("#player-o-name").value, "O");
     initGame();
     toggleGameModal();
     event.preventDefault();
@@ -152,11 +162,11 @@ const displayController = (() => {
     // Display results of game in text
     resultText.hidden = false;
     if (result === "win") {
-      resultText.innerText += ` ${name} wins!`;
+      resultText.innerText = ` ${name} wins!`;
     } else if (result === "tie") {
-      resultText.innerText += " Tie!";
+      resultText.innerText = " Tie!";
     } else {
-      resultText.innerText += " Error";
+      resultText.innerText = " Error";
     }
   };
   return { initGame, showResult };
