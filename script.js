@@ -99,6 +99,10 @@ const gameLogic = (() => {
 })();
 
 const displayController = (() => {
+  const newGame = document.querySelector(".new-game-btn");
+  newGame.addEventListener("click", () => toggleGameModal());
+  const cancelGame = document.querySelector(".cancel-form-btn");
+  cancelGame.addEventListener("click", () => toggleGameModal());
   const initDisplay = () => {
     const markerButtons = document.querySelectorAll(".marker-btn");
     let counter = 0; // 0 -> 8
@@ -112,10 +116,6 @@ const displayController = (() => {
         counter++;
       }
     }
-    const newGame = document.querySelector(".new-game-btn");
-    newGame.addEventListener("click", () => toggleGameModal());
-    const cancelGame = document.querySelector(".cancel-form-btn");
-    cancelGame.addEventListener("click", () => toggleGameModal());
   };
 
   const toggleGameModal = () => {
@@ -145,4 +145,4 @@ const displayController = (() => {
   return { initDisplay, showResult };
 })();
 
-displayController.initDisplay();
+// displayController.initDisplay();
