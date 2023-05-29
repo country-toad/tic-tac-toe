@@ -162,6 +162,7 @@ const gameLogic = (() => {
 })();
 
 const displayController = (() => {
+  const markerButtons = document.querySelectorAll(".marker-btn");
   const newGame = document.querySelector(".new-game-btn");
   newGame.addEventListener("click", () => toggleGameModal());
   const cancelGame = document.querySelector(".cancel-form-btn");
@@ -185,7 +186,6 @@ const displayController = (() => {
   });
 
   const initGame = () => {
-    const markerButtons = document.querySelectorAll(".marker-btn");
     let counter = 0; // 0 -> 8
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
@@ -231,7 +231,6 @@ const displayController = (() => {
   };
 
   const reset = () => {
-    const markerButtons = document.querySelectorAll(".marker-btn");
     markerButtons.forEach((button) => {
       button.innerText = "";
       button.disabled = false;
@@ -264,7 +263,6 @@ const displayController = (() => {
   };
 
   const update = () => {
-    const markerButtons = document.querySelectorAll(".marker-btn");
     let counter = 0; // 0 -> 8
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
@@ -279,4 +277,4 @@ const displayController = (() => {
   return { showResult, update };
 })();
 
-gameLogic.enableBot();
+// gameLogic.enableBot();
