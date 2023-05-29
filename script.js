@@ -134,7 +134,6 @@ const displayController = (() => {
     let counter = 0; // 0 -> 8
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
-        //This is running multiple times causing the event listeners to duplicate and returning errors whenver a new game is started.
         markerButtons[counter].addEventListener(
           "click",
           (event) => {
