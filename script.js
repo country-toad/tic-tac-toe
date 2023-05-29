@@ -110,7 +110,11 @@ const gameLogic = (() => {
     }
   };
 
-  return { placeMarker, setPlayer };
+  const reset = () => {
+    currentPlayer = player1;
+  };
+
+  return { placeMarker, setPlayer, reset };
 })();
 
 const displayController = (() => {
@@ -129,6 +133,7 @@ const displayController = (() => {
     }
 
     gameboard.reset();
+    gameLogic.reset();
     reset();
     initGame();
     toggleGameModal();
