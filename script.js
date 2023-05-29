@@ -121,7 +121,7 @@ const displayController = (() => {
   const startGame = document.querySelector(".start-btn");
   startGame.addEventListener("click", (event) => {
     gameboard.reset();
-    displayController.reset();
+    reset();
     gameLogic.setPlayer(document.querySelector("#player-x-name").value, "X");
     gameLogic.setPlayer(document.querySelector("#player-o-name").value, "O");
     initGame();
@@ -173,10 +173,7 @@ const displayController = (() => {
 
   const reset = () => {
     const markerButtons = document.querySelectorAll(".marker-btn");
-    // As long as gameboard.reset() was ran, this should clear all of the marker buttons
-    markerButtons.forEach(
-      (button) => (button.innerText = gameboard.getArr()[row][col])
-    );
+    markerButtons.forEach((button) => (button.innerText = ""));
   };
   return { initGame, showResult };
 })();
