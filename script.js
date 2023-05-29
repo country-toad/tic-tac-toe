@@ -121,6 +121,7 @@ const displayController = (() => {
   const startGame = document.querySelector(".start-btn");
   startGame.addEventListener("click", (event) => {
     gameboard.reset();
+    displayController.reset();
     gameLogic.setPlayer(document.querySelector("#player-x-name").value, "X");
     gameLogic.setPlayer(document.querySelector("#player-o-name").value, "O");
     initGame();
@@ -133,8 +134,8 @@ const displayController = (() => {
     let counter = 0; // 0 -> 8
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
-        markerButtons[counter].innerText = gameboard.getArr()[row][col];
         markerButtons[counter].disabled = false;
+        //This is running multiple times causing the event listeners to duplicate and returning errors whenver a new game is started.
         markerButtons[counter].addEventListener("click", (event) => {
           gameLogic.placeMarker(row, col);
           event.target.innerText = gameboard.getArr()[row][col];
@@ -168,6 +169,14 @@ const displayController = (() => {
     } else {
       resultText.innerText = " Error";
     }
+  };
+
+  const reset = () => {
+    const markerButtons = document.querySelectorAll(".marker-btn");
+    // As long as gameboard.reset() was ran, this should clear all of the marker buttons
+    markerButtons.forEach(
+      (button) => (button.innerText = gameboard.getArr()[row][col])
+    );
   };
   return { initGame, showResult };
 })();
