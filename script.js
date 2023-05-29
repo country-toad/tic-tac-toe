@@ -193,8 +193,6 @@ const displayController = (() => {
           "click",
           (event) => {
             gameLogic.placeMarker(row, col);
-            event.target.innerText = gameboard.getArr()[row][col];
-            event.target.disabled = true;
             showCurrentPlayer();
             update();
           },
@@ -277,4 +275,4 @@ const displayController = (() => {
   return { showResult, update };
 })();
 
-// gameLogic.enableBot();
+gameLogic.enableBot();
