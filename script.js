@@ -110,11 +110,15 @@ const gameLogic = (() => {
     }
   };
 
+  const getCurrentPlayer = () => {
+    return currentPlayer;
+  };
+
   const reset = () => {
     currentPlayer = player1;
   };
 
-  return { placeMarker, setPlayer, reset };
+  return { placeMarker, setPlayer, reset, getCurrentPlayer };
 })();
 
 const displayController = (() => {
@@ -151,6 +155,7 @@ const displayController = (() => {
             gameLogic.placeMarker(row, col);
             event.target.innerText = gameboard.getArr()[row][col];
             event.target.disabled = true;
+            showCurrentPlayer();
           },
           { once: true }
         );
@@ -210,6 +215,11 @@ const displayController = (() => {
       return false;
     }
     return true;
+  };
+
+  const showCurrentPlayer = () => {
+    document.querySelector(".current-player").innerText =
+      gameLogic.getCurrentPlayer().name + "'s turn";
   };
 
   return { showResult };
