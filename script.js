@@ -120,10 +120,16 @@ const displayController = (() => {
   cancelGame.addEventListener("click", () => toggleGameModal());
   const startGame = document.querySelector(".start-btn");
   startGame.addEventListener("click", (event) => {
+    if (validateNames()) {
+      gameLogic.setPlayer(getName("X"), "X");
+      gameLogic.setPlayer(getName("O"), "O");
+    } else {
+      alert("Invalid name input");
+      return false;
+    }
+
     gameboard.reset();
     reset();
-    gameLogic.setPlayer(document.querySelector("#player-x-name").value, "X");
-    gameLogic.setPlayer(document.querySelector("#player-o-name").value, "O");
     initGame();
     toggleGameModal();
     event.preventDefault();
@@ -180,5 +186,26 @@ const displayController = (() => {
       button.disabled = false;
     });
   };
-  return { initGame, showResult };
+
+  const getName = (player) => {
+    if (player === "X") {
+      return document.querySelector("#player-x-name").value;
+    } else if (player === "O") {
+      return document.querySelector("#player-o-name").value;
+    } else {
+      return false;
+    }
+  };
+
+  const validateNames = () => {
+    if (
+      document.querySelector("#player-x-name").value === "" ||
+      document.querySelector("#player-o-name").value === ""
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  return { showResult };
 })();
