@@ -196,6 +196,7 @@ const displayController = (() => {
             event.target.innerText = gameboard.getArr()[row][col];
             event.target.disabled = true;
             showCurrentPlayer();
+            update();
           },
           { once: true }
         );
@@ -262,7 +263,20 @@ const displayController = (() => {
       gameLogic.getCurrentPlayer().name + "'s turn";
   };
 
-  return { showResult };
+  const update = () => {
+    const markerButtons = document.querySelectorAll(".marker-btn");
+    let counter = 0; // 0 -> 8
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        markerButtons[counter].innerText = gameboard.getArr()[row][col];
+        if (markerButtons[counter].innerText !== "") {
+          markerButtons[counter].disabled = true;
+        }
+        counter++;
+      }
+    }
+  };
+  return { showResult, update };
 })();
 
 gameLogic.enableBot();
