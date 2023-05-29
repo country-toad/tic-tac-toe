@@ -29,7 +29,32 @@ const player = (name, marker) => {
   return { name, marker };
 };
 
+const bot = (difficulty) => {
+  arr = gameboard.getArr();
+  const play = (difficulty) => {
+    if (difficulty == "easy") {
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (isValid(row, col)) {
+            gameLogic.placeMarker(row, col);
+            return;
+          }
+        }
+      }
+    }
+  };
+  const isValid = (row, col) => {
+    if (arr[row][col] === "") {
+      return true;
+    }
+    return false;
+  };
+  return { difficulty, play };
+};
+
 const gameLogic = (() => {
+  let botEnabled = false;
+  let playerBot = undefined;
   const player1 = player("P1", "X");
   const player2 = player("P2", "O");
   let currentPlayer = player1;
@@ -49,6 +74,9 @@ const gameLogic = (() => {
   const switchPlayer = () => {
     if (currentPlayer === player1) {
       currentPlayer = player2;
+      if (botEnabled) {
+        playerBot.play("easy");
+      }
     } else {
       currentPlayer = player1;
     }
@@ -118,7 +146,19 @@ const gameLogic = (() => {
     currentPlayer = player1;
   };
 
-  return { placeMarker, setPlayer, reset, getCurrentPlayer };
+  //Bot section
+  const enableBot = (difficulty) => {
+    botEnabled = true;
+    playerBot = bot(difficulty);
+  };
+
+  return {
+    placeMarker,
+    setPlayer,
+    reset,
+    getCurrentPlayer,
+    enableBot,
+  };
 })();
 
 const displayController = (() => {
@@ -224,3 +264,5 @@ const displayController = (() => {
 
   return { showResult };
 })();
+
+gameLogic.enableBot();
