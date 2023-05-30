@@ -233,6 +233,8 @@ const displayController = (() => {
       button.innerText = "";
       button.disabled = false;
     });
+    document.querySelector(".result").innerText = "";
+    document.querySelector(".current-player").innerText = "";
   };
 
   const getName = (player) => {
