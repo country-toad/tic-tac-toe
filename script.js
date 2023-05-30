@@ -9,8 +9,14 @@ const gameboard = (() => {
     if (arr[row][col] === "" && (value === "X" || value === "O")) {
       arr[row][col] = value;
       return true;
+    } else if (arr[row][col] !== "") {
+      console.log("Error: Selected square is not empty.");
+      return false;
+    } else if (value !== "X" || value !== "O") {
+      console.log(`Error: ${value} is invalid input`);
+      return false;
     } else {
-      console.log(`${value} is invalid input or selected square is not empty.`);
+      console.log("Error: other");
       return false;
     }
   };
@@ -169,6 +175,7 @@ const displayController = (() => {
   const cancelGame = document.querySelector(".cancel-form-btn");
   cancelGame.addEventListener("click", () => toggleGameModal());
   const startGame = document.querySelector(".start-btn");
+  let startGameClickedOnce = false;
   startGame.addEventListener("click", (event) => {
     if (validateNames()) {
       gameLogic.setPlayer(getName("X"), "X");
@@ -183,7 +190,10 @@ const displayController = (() => {
       gameLogic.enableBot("easy");
     }
     reset();
-    initGame();
+    if (!startGameClickedOnce) {
+      initGame();
+      startGameClickedOnce = true;
+    }
     toggleGameModal();
     event.preventDefault();
   });
@@ -192,15 +202,11 @@ const displayController = (() => {
     let counter = 0; // 0 -> 8
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
-        markerButtons[counter].addEventListener(
-          "click",
-          (event) => {
-            gameLogic.placeMarker(row, col);
-            showCurrentPlayer();
-            update();
-          },
-          { once: true }
-        );
+        markerButtons[counter].addEventListener("click", (event) => {
+          gameLogic.placeMarker(row, col);
+          showCurrentPlayer();
+          update();
+        });
         counter++;
       }
     }
@@ -288,5 +294,3 @@ const displayController = (() => {
 
   return { showResult, update, isBotChecked };
 })();
-
-// gameLogic.enableBot();
