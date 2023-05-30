@@ -37,7 +37,7 @@ const player = (name, marker) => {
 
 const bot = (difficulty) => {
   arr = gameboard.getArr();
-  const play = (difficulty) => {
+  const play = () => {
     if (difficulty == "easy") {
       for (let row = 0; row < 3; row++) {
         for (let col = 0; col < 3; col++) {
@@ -47,6 +47,20 @@ const bot = (difficulty) => {
           }
         }
       }
+    } else if (difficulty == "medium") {
+      let validMoves = [];
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (isValid(row, col)) {
+            validMoves.push([row, col]);
+          }
+        }
+      }
+      const randomSpot = Math.floor(Math.random() * validMoves.length);
+      gameLogic.placeMarker(
+        validMoves[randomSpot][0],
+        validMoves[randomSpot][1]
+      );
     }
   };
   const isValid = (row, col) => {
@@ -81,7 +95,7 @@ const gameLogic = (() => {
     if (currentPlayer === player1) {
       currentPlayer = player2;
       if (botEnabled) {
-        playerBot.play("easy");
+        playerBot.play();
       }
     } else {
       currentPlayer = player1;
@@ -187,7 +201,7 @@ const displayController = (() => {
     gameboard.reset();
     gameLogic.reset();
     if (isBotChecked()) {
-      gameLogic.enableBot("easy");
+      gameLogic.enableBot("medium");
     }
     reset();
     if (!startGameClickedOnce) {
