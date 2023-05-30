@@ -144,6 +144,7 @@ const gameLogic = (() => {
 
   const reset = () => {
     currentPlayer = player1;
+    botEnabled = false;
   };
 
   //Bot section
@@ -176,9 +177,11 @@ const displayController = (() => {
       alert("Invalid name input");
       return false;
     }
-
     gameboard.reset();
     gameLogic.reset();
+    if (isBotChecked()) {
+      gameLogic.enableBot("easy");
+    }
     reset();
     initGame();
     toggleGameModal();
@@ -274,7 +277,16 @@ const displayController = (() => {
       }
     }
   };
-  return { showResult, update };
+
+  const isBotChecked = () => {
+    const botCheckbox = document.querySelector("#isBotEnabled");
+    if (botCheckbox.checked) {
+      return true;
+    }
+    return false;
+  };
+
+  return { showResult, update, isBotChecked };
 })();
 
-gameLogic.enableBot();
+// gameLogic.enableBot();
