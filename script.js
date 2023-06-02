@@ -4,6 +4,7 @@ const gameboard = (() => {
     ["", "", ""],
     ["", "", ""],
   ];
+  let solved = false;
   const getArr = () => arr;
   const add = (value, row, col) => {
     if (arr[row][col] === "" && (value === "X" || value === "O")) {
@@ -27,8 +28,59 @@ const gameboard = (() => {
       }
     }
   };
+  const checkWin = () => {
+    const compareThree = (values) => {
+      if (values[0] === "") {
+        return false;
+      }
+      // console.log(values);
+      return values.every((value) => value === values[0]);
+    };
+    // Diagonal variables and counters
+    let diag1 = [];
+    let diag2 = [];
+    let ascCol = 0;
+    let descCol = 2;
+    for (let x = 0; x < 3; x++) {
+      let currentCol = [];
+      // Check all row win conditions - arr[x] sends the nested array at index X
+      if (compareThree(arr[x])) {
+        solved = true;
+        return true;
+      }
+      //Check all column win conditions
+      for (let y = 0; y < 3; y++) {
+        currentCol.push(arr[y][x]);
+      }
+      console.log(currentCol);
+      if (compareThree(currentCol)) {
+        solved = true;
+        return true;
+      }
+      //Check all diag win conditions
+      diag1.push(arr[x][ascCol]);
+      diag2.push(arr[x][descCol]);
+      ascCol++;
+      descCol--;
+    }
+    if (compareThree(diag1) || compareThree(diag2)) {
+      solved = true;
+      return true;
+    }
+  };
+  const checkTie = () => {
+    // Checks all spots on grid to see if any are empty. If none are empty, it is a tie.
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        if (arr[row][col] === "") {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
 
-  return { getArr, add, reset };
+  return { getArr, add, reset, checkWin, checkTie };
 })();
 
 const player = (name, marker) => {
@@ -80,11 +132,11 @@ const gameLogic = (() => {
   let currentPlayer = player1;
   const placeMarker = (row, col) => {
     if (gameboard.add(currentPlayer.marker, row, col)) {
-      if (checkWin(gameboard.getArr())) {
+      if (gameboard.checkWin()) {
         displayController.showResult("win", currentPlayer.name);
         return;
       }
-      if (checkTie(gameboard.getArr())) {
+      if (gameboard.checkTie()) {
         displayController.showResult("tie", currentPlayer.name);
         return;
       }
@@ -101,55 +153,7 @@ const gameLogic = (() => {
       currentPlayer = player1;
     }
   };
-  const checkWin = (arr) => {
-    const compareThree = (values) => {
-      if (values[0] === "") {
-        return false;
-      }
-      return values.every((value) => value === values[0]);
-    };
-    // Check all row win conditions
-    for (let row = 0; row < 3; row++) {
-      if (compareThree(arr[row])) {
-        return true;
-      }
-    }
-    // Check all column win conditions
-    for (let col = 0; col < 3; col++) {
-      let currentCol = [];
-      for (let row = 0; row < 3; row++) {
-        currentCol.push(arr[row][col]);
-      }
-      if (compareThree(currentCol)) {
-        return true;
-      }
-    }
-    //Check diagonal win conditions
-    let diag1 = [];
-    let diag2 = [];
-    let ascCol = 0;
-    let descCol = 2;
-    for (let row = 0; row < 3; row++) {
-      diag1.push(arr[row][ascCol]);
-      diag2.push(arr[row][descCol]);
-      ascCol++;
-      descCol--;
-    }
-    if (compareThree(diag1) || compareThree(diag2)) {
-      return true;
-    }
-  };
-  const checkTie = (arr) => {
-    // Checks all spots on grid to see if any are empty. If none are empty, it is a tie.
-    for (let row = 0; row < 3; row++) {
-      for (let col = 0; col < 3; col++) {
-        if (arr[row][col] === "") {
-          return false;
-        }
-      }
-    }
-    return true;
-  };
+
   const setPlayer = (name, marker) => {
     if (marker === "X") {
       player1.name = name;
@@ -173,14 +177,37 @@ const gameLogic = (() => {
     playerBot = bot(difficulty);
   };
 
+  // const score = (potentialBoard) => {
+  //   if (checkWin(potentialBoard)) {
+  //     return 10;
+  //   } else if (checkWin(potentialBoard)) {
+  //     return -10;
+  //   } else {
+  //     return 0;
+  //   }
+  // };
+
+  // const minimax = (currentBoard) => {
+  //   if (currentBoard.checkWin === "true") {
+  //   }
+  // };
+
   return {
     placeMarker,
     setPlayer,
     reset,
     getCurrentPlayer,
     enableBot,
+    // score,
   };
 })();
+
+// potentialBoard = [
+//   ["X", "", ""],
+//   ["", "X", ""],
+//   ["", "", "X"],
+// ];
+// gameLogic.score(pot entialBoard);
 
 const displayController = (() => {
   const markerButtons = document.querySelectorAll(".marker-btn");
