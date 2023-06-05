@@ -1,4 +1,4 @@
-const gameboard = (() => {
+const gameboard = () => {
   const arr = [
     ["", "", ""],
     ["", "", ""],
@@ -33,7 +33,6 @@ const gameboard = (() => {
       if (values[0] === "") {
         return false;
       }
-      // console.log(values);
       return values.every((value) => value === values[0]);
     };
     // Diagonal variables and counters
@@ -52,7 +51,6 @@ const gameboard = (() => {
       for (let y = 0; y < 3; y++) {
         currentCol.push(arr[y][x]);
       }
-      console.log(currentCol);
       if (compareThree(currentCol)) {
         solved = true;
         return true;
@@ -81,14 +79,16 @@ const gameboard = (() => {
   };
 
   return { getArr, add, reset, checkWin, checkTie };
-})();
+};
+
+mainGameboard = gameboard();
 
 const player = (name, marker) => {
   return { name, marker };
 };
 
 const bot = (difficulty) => {
-  arr = gameboard.getArr();
+  arr = mainGameboard.getArr();
   const play = () => {
     if (difficulty == "easy") {
       for (let row = 0; row < 3; row++) {
@@ -131,12 +131,12 @@ const gameLogic = (() => {
   const player2 = player("P2", "O");
   let currentPlayer = player1;
   const placeMarker = (row, col) => {
-    if (gameboard.add(currentPlayer.marker, row, col)) {
-      if (gameboard.checkWin()) {
+    if (mainGameboard.add(currentPlayer.marker, row, col)) {
+      if (mainGameboard.checkWin()) {
         displayController.showResult("win", currentPlayer.name);
         return;
       }
-      if (gameboard.checkTie()) {
+      if (mainGameboard.checkTie()) {
         displayController.showResult("tie", currentPlayer.name);
         return;
       }
@@ -225,7 +225,7 @@ const displayController = (() => {
       alert("Invalid name input");
       return false;
     }
-    gameboard.reset();
+    mainGameboard.reset();
     gameLogic.reset();
     if (isBotChecked()) {
       gameLogic.enableBot("medium");
@@ -263,7 +263,7 @@ const displayController = (() => {
   };
 
   const showResult = (result, name) => {
-    // Disable gameboard buttons
+    // Disable mainGameboard buttons
     const allButtons = document.querySelectorAll(".marker-btn");
     allButtons.forEach((button) => (button.disabled = "true"));
     const resultText = document.querySelector(".result");
@@ -316,7 +316,7 @@ const displayController = (() => {
     let counter = 0; // 0 -> 8
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
-        markerButtons[counter].innerText = gameboard.getArr()[row][col];
+        markerButtons[counter].innerText = mainGameboard.getArr()[row][col];
         if (markerButtons[counter].innerText !== "") {
           markerButtons[counter].disabled = true;
         }
