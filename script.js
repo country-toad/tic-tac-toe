@@ -4,7 +4,6 @@ const gameboard = () => {
     ["", "", ""],
     ["", "", ""],
   ];
-  let solved = false;
   const getArr = () => arr;
   const add = (value, row, col) => {
     if (arr[row][col] === "" && (value === "X" || value === "O")) {
@@ -32,8 +31,10 @@ const gameboard = () => {
     const compareThree = (values) => {
       if (values[0] === "") {
         return false;
+      } else if (values.every((value) => value === values[0])) {
+        return values[0];
       }
-      return values.every((value) => value === values[0]);
+      return false;
     };
     // Diagonal variables and counters
     let diag1 = [];
@@ -44,16 +45,14 @@ const gameboard = () => {
       let currentCol = [];
       // Check all row win conditions - arr[x] sends the nested array at index X
       if (compareThree(arr[x])) {
-        solved = true;
-        return true;
+        return arr[x][0];
       }
       //Check all column win conditions
       for (let y = 0; y < 3; y++) {
         currentCol.push(arr[y][x]);
       }
       if (compareThree(currentCol)) {
-        solved = true;
-        return true;
+        return currentCol[0];
       }
       //Check all diag win conditions
       diag1.push(arr[x][ascCol]);
@@ -61,9 +60,11 @@ const gameboard = () => {
       ascCol++;
       descCol--;
     }
-    if (compareThree(diag1) || compareThree(diag2)) {
-      solved = true;
-      return true;
+    if (compareThree(diag1)) {
+      return diag1[0];
+    }
+    if (compareThree(diag2)) {
+      return diag2[0];
     }
   };
   const checkTie = () => {
@@ -177,15 +178,15 @@ const gameLogic = (() => {
     playerBot = bot(difficulty);
   };
 
-  // const score = (potentialBoard) => {
-  //   if (checkWin(potentialBoard)) {
-  //     return 10;
-  //   } else if (checkWin(potentialBoard)) {
-  //     return -10;
-  //   } else {
-  //     return 0;
-  //   }
-  // };
+  const score = (gameboard) => {
+    if (gameboard.checkWin() === "O") {
+      return 10;
+    } else if (gameboard.checkWin() === "X") {
+      return -10;
+    } else {
+      return 0;
+    }
+  };
 
   // const minimax = (currentBoard) => {
   //   if (currentBoard.checkWin === "true") {
@@ -198,16 +199,15 @@ const gameLogic = (() => {
     reset,
     getCurrentPlayer,
     enableBot,
-    // score,
+    score,
   };
 })();
 
-// potentialBoard = [
-//   ["X", "", ""],
-//   ["", "X", ""],
-//   ["", "", "X"],
-// ];
-// gameLogic.score(pot entialBoard);
+testBoard = gameboard();
+testBoard.add("X", 0, 2);
+testBoard.add("X", 1, 1);
+testBoard.add("O", 2, 0);
+console.log(gameLogic.score(testBoard));
 
 const displayController = (() => {
   const markerButtons = document.querySelectorAll(".marker-btn");
